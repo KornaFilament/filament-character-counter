@@ -107,11 +107,11 @@
             }}
             @keyup="characterCount = $event.target.value.length"
         />
-        @if ($isShownInsideControl())
+        @if ($isShownInsideControl() && $getShowCharacterCounter())
             @include('filament-character-counter::partials.character-count-container')
         @endif
     </x-filament::input.wrapper>
-    @if (!$isShownInsideControl())
+    @if (!$isShownInsideControl() && $getShowCharacterCounter())
         @include('filament-character-counter::partials.character-count-container')
     @endif
 

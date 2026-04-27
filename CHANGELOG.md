@@ -2,6 +2,11 @@
 
 All notable changes to `filament-character-counter` will be documented in this file.
 
+## Unreleased
+
+### Added
+- `showCharacterCounter(bool|Closure $condition = true)` method to conditionnally display the character counter on individual fields
+
 ## v5.0.1 - 2026-03-26
 
 ## Fixed
