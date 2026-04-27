@@ -234,7 +234,7 @@
             </div>
         </x-filament::input.wrapper>
 
-        @if (!$isShownInsideControl())
+        @if (!$isShownInsideControl() && $getShowCharacterCounter())
             @include('filament-character-counter::partials.character-count-container')
         @endif
     </div>

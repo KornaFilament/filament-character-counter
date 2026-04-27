@@ -110,3 +110,55 @@ it('maxLength after characterLimit does not override the counter', function () {
         // Hard limit is maxLength
         ->and($field->getMaxLength())->toBe(200);
 });
+
+// --- showCharacterCounter ---
+
+it('shows the character counter by default on text input', function () {
+    $field = TextInput::make('test')->characterLimit(100);
+
+    expect($field->getShowCharacterCounter())->toBeTrue();
+});
+
+it('hides the character counter when set to false on text input', function () {
+    $field = TextInput::make('test')
+        ->characterLimit(100)
+        ->showCharacterCounter(false);
+
+    expect($field->getShowCharacterCounter())->toBeFalse();
+});
+
+it('shows the character counter by default on textarea', function () {
+    $field = Textarea::make('test')->characterLimit(100);
+
+    expect($field->getShowCharacterCounter())->toBeTrue();
+});
+
+it('hides the character counter when set to false on textarea', function () {
+    $field = Textarea::make('test')
+        ->characterLimit(100)
+        ->showCharacterCounter(false);
+
+    expect($field->getShowCharacterCounter())->toBeFalse();
+});
+
+it('shows the character counter by default on rich editor', function () {
+    $field = RichEditor::make('test')->characterLimit(100);
+
+    expect($field->getShowCharacterCounter())->toBeTrue();
+});
+
+it('hides the character counter when set to false on rich editor', function () {
+    $field = RichEditor::make('test')
+        ->characterLimit(100)
+        ->showCharacterCounter(false);
+
+    expect($field->getShowCharacterCounter())->toBeFalse();
+});
+
+it('accepts a closure for showCharacterCounter', function () {
+    $field = TextInput::make('test')
+        ->characterLimit(100)
+        ->showCharacterCounter(fn () => false);
+
+    expect($field->getShowCharacterCounter())->toBeFalse();
+});

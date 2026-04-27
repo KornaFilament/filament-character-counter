@@ -73,6 +73,20 @@ TextInput::make('title')
     ->characterLimit(50),
 ```
 
+You can also conditionally show or hide the coutner on a per-field basis:
+
+```php
+// Hide the counter on this field
+TextInput::make('slug')
+    ->showCharacterCounter(false)
+    ->characterLimit(100),
+
+// Conditionally display via Closure
+Textarea::make('bio')
+    ->showCharacterCounter(fn (Get $get) => $get('is_pulic'))
+    ->characterLimit(255),
+```
+
 
 ## Testing
 

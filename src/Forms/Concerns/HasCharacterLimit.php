@@ -8,6 +8,8 @@ trait HasCharacterLimit
 {
     protected int | Closure | null $characterLimit = 0;
 
+    protected bool | Closure $showCharacterCounter = true;
+
     public function characterLimit(int | Closure | null $value = null): self
     {
         $this->characterLimit = $value;
@@ -24,5 +26,17 @@ trait HasCharacterLimit
         }
 
         return $character_limit;
+    }
+
+    public function showCharacterCounter(bool | Closure $condition = true): static
+    {
+        $this->showCharacterCounter = $condition;
+
+        return $this;
+    }
+
+    public function getShowCharacterCounter(): bool
+    {
+        return $this->evaluate($this->showCharacterCounter);
     }
 }
