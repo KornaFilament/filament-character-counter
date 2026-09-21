@@ -30,18 +30,27 @@ class TestCase extends Orchestra
 
     protected function getPackageProviders($app)
     {
+        // NOTE: the order here is functional, not cosmetic.
+        // Filament\Support rebinds Livewire's DataStore to its own
+        // DataStoreOverride with a plain bind(). If Livewire is registered
+        // first, that bind overwrites the singleton instance and every resolve
+        // returns a fresh DataStore. As a result Livewire components hold no
+        // state and rendering crashes on an empty errorBag.
+        // In a real app filament/support sorts alphabetically before
+        // livewire/livewire in discovery, so it works there. Here we have to
+        // reproduce that order explicitly.
         return [
-            ActionsServiceProvider::class,
             BladeHeroiconsServiceProvider::class,
             BladeIconsServiceProvider::class,
+            SupportServiceProvider::class,
+            ActionsServiceProvider::class,
             FilamentServiceProvider::class,
             FormsServiceProvider::class,
             InfolistsServiceProvider::class,
-            LivewireServiceProvider::class,
             NotificationsServiceProvider::class,
-            SupportServiceProvider::class,
             TablesServiceProvider::class,
             WidgetsServiceProvider::class,
+            LivewireServiceProvider::class,
             FilamentCharacterCounterServiceProvider::class,
         ];
     }

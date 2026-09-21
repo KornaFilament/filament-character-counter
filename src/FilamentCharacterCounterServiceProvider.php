@@ -29,10 +29,16 @@ class FilamentCharacterCounterServiceProvider extends PackageServiceProvider
                     ->askToStarRepoOnGitHub('schmeits/filament-character-counter');
             });
 
-        $configFileName = $package->shortName();
+        // The config file is named 'character-counter', not the package's
+        // shortName. shortName() only strips the 'laravel-' prefix, so for
+        // 'filament-character-counter' it returned that name unchanged. The old
+        // check therefore looked for config/filament-character-counter.php, a
+        // file that never existed. As a result the config was never merged and
+        // the install command could not publish it.
+        $configFileName = 'character-counter';
 
         if (file_exists($package->basePath("/../config/{$configFileName}.php"))) {
-            $package->hasConfigFile();
+            $package->hasConfigFile($configFileName);
         }
 
         if (file_exists($package->basePath('/../resources/lang'))) {
